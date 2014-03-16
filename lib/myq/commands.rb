@@ -7,12 +7,12 @@ require 'yaml'
 
 module Myq
   class Commands < Thor
-    class_option :host, aliases: '-h', type: :string, default: 'localhost', desc: 'profile by .backlogrc'
-    class_option :username, aliases: '-u', type: :string, default: 'root', desc: 'profile by .backlogrc'
-    class_option :password, aliases: '-p', type: :string, default: '', desc: 'profile by .backlogrc'
-    class_option :port, type: :numeric, default: 3306, desc: 'profile by .backlogrc'
-    class_option :database, aliases: '-d', type: :string, desc: 'profile by .backlogrc'
-    class_option :profile, aliases: '--pr', type: :string, default: 'default', desc: 'profile by .backlogrc'
+    class_option :host, aliases: '-h', type: :string, default: 'localhost', desc: 'host'
+    class_option :username, aliases: '-u', type: :string, default: 'root', desc: 'username'
+    class_option :password, aliases: '-p', type: :string, default: '', desc: 'password'
+    class_option :port, type: :numeric, default: 3306, desc: 'port'
+    class_option :database, aliases: '-d', type: :string, desc: 'database'
+    class_option :profile, aliases: '--pr', type: :string, default: 'default', desc: 'profile by .database.yml'
     map '-q' => :query_inline
     map '-f' => :query_file
     map '-s' => :sample
