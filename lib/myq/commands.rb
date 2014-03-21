@@ -16,6 +16,7 @@ module Myq
     map '-q' => :query_inline
     map '-f' => :query_file
     map '-s' => :sample
+    map '-l' => :show_table
     map '-v' => :version
 
     def initialize(args = [], options = {}, config = {})
@@ -38,23 +39,32 @@ module Myq
       @client = Mysql2::Client.new(host: host, username: username, password: password, database: database, port: port)
     end
 
-    desc "-q [sql]", "inline query"
+    desc '-q [sql]', 'inline query'
     def query_inline(query)
       query(query)
     end
 
-    desc "-f [file]", "query by sql file"
+    desc '-f [file]', 'query by sql file'
     def query_file(file)
       query(File.read(file))
     end
 
-    desc "-s [table name]", "sampling query, default limit 10"
+    desc '-s [table name]', 'sampling query, default limit 10'
     option :limit, type: :numeric, default: 10, aliases: '-n', desc: 'limit count'
     def sample(table)
       query("select * from #{table} limit #{options['limit']}")
     end
 
-    desc "version", "show version"
+    desc '-l [table name]', 'show table info '
+    def show_table(table_name = nil)
+      if table_name.nil?
+        query('show tables')
+      else
+        query("show columns from #{table_name}")
+      end
+    end
+
+    desc 'version', 'show version'
     def version
       puts VERSION
     end
@@ -65,6 +75,7 @@ module Myq
       result = []
       query.split(';').each do |sql|
         res = @client.xquery(sql)
+        next if res.nil?
         res.each do |record|
           puts Yajl::Encoder.encode(record)
         end
