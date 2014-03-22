@@ -7,12 +7,7 @@ require 'yaml'
 
 module Myq
   class Commands < Thor
-    class_option :host, aliases: '-h', type: :string, default: 'localhost', desc: 'host'
-    class_option :username, aliases: '-u', type: :string, default: 'root', desc: 'username'
-    class_option :password, aliases: '-p', type: :string, default: '', desc: 'password'
-    class_option :port, type: :numeric, default: 3306, desc: 'port'
-    class_option :database, aliases: '-d', type: :string, desc: 'database'
-    class_option :profile, aliases: '--pr', type: :string, default: 'default', desc: 'profile by .database.yml'
+    class_option :profile, aliases: '-p', type: :string, default: 'default', desc: 'profile by .database.yml'
     map '-q' => :query_inline
     map '-f' => :query_file
     map '-s' => :sample
@@ -24,19 +19,11 @@ module Myq
       global_options = config[:shell].base.options
       if File.exist?("#{ENV['HOME']}/.database.yml")
         data = YAML.load_file("#{ENV['HOME']}/.database.yml")[global_options['profile']]
-        host = data['host']
-        username = data['username']
-        password = data['password']
-        database = data['database']
-        port = data['port']
       else
-        host = global_options['host']
-        username = global_options['username']
-        password = global_options['password']
-        database = global_options['database']
-        port = global_options['port']
+        puts "please create #{ENV['HOME']}/.database.yml"
+        exit 1
       end
-      @client = Mysql2::Client.new(host: host, username: username, password: password, database: database, port: port)
+      @client = Mysql2::Client.new(data)
     end
 
     desc '-q [sql]', 'inline query'
@@ -67,6 +54,7 @@ module Myq
     desc 'version', 'show version'
     def version
       puts VERSION
+      puts `mysql -V`
     end
 
     private
@@ -74,12 +62,13 @@ module Myq
     def query(query)
       result = []
       query.split(';').each do |sql|
-        res = @client.xquery(sql)
+        res = @client.xquery(sql, :cast => false)
         next if res.nil?
         res.each do |record|
-          puts Yajl::Encoder.encode(record)
+          result << record
         end
       end
+      puts Yajl::Encoder.encode(result)
     end
   end
 end
