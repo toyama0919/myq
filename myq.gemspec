@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "yajl-ruby"
   spec.add_runtime_dependency "mysql2-cs-bind"
+  spec.add_runtime_dependency "activesupport"
 end
