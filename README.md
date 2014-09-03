@@ -1,6 +1,22 @@
 # Myq
 
-mysql to json utility
+Command-line MYSQL TO JSON processor.
+
+## Exsample
+
+### exec query
+
+```bash
+$ myq -q "select * from access limit 10"
+[{"host":"48.189.196.32","user":"-","method":"POST","referer":"-","path":"/search/?c=Games+Sports","size":133,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"128.24.107.59","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":70,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"144.102.28.67","user":"-","method":"GET","referer":"/category/office","path":"/item/games/4274","size":59,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"100.129.167.163","user":"-","method":"GET","referer":"/category/books","path":"/item/electronics/4570","size":139,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"132.189.67.199","user":"-","method":"POST","referer":"-","path":"/search/?c=Finance","size":116,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0) A","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"176.147.148.79","user":"-","method":"GET","referer":"/category/software","path":"/item/jewelry/4592","size":78,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"200.48.189.175","user":"-","method":"GET","referer":"-","path":"/category/software","size":85,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.111.122.175","user":"-","method":"GET","referer":"/category/software","path":"/category/networking","size":43,"code":200,"agent":"Mozilla/5.0 (compatible; Googl","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.117.150.167","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":109,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"176.93.131.44","user":"-","method":"POST","referer":"/category/music","path":"/search/?c=Toys","size":60,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"}]
+```
+
+### sampling query
+
+```bash
+$ myq -s access
+[{"host":"48.189.196.32","user":"-","method":"POST","referer":"-","path":"/search/?c=Games+Sports","size":133,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"128.24.107.59","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":70,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"144.102.28.67","user":"-","method":"GET","referer":"/category/office","path":"/item/games/4274","size":59,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"100.129.167.163","user":"-","method":"GET","referer":"/category/books","path":"/item/electronics/4570","size":139,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"132.189.67.199","user":"-","method":"POST","referer":"-","path":"/search/?c=Finance","size":116,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0) A","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"176.147.148.79","user":"-","method":"GET","referer":"/category/software","path":"/item/jewelry/4592","size":78,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"200.48.189.175","user":"-","method":"GET","referer":"-","path":"/category/software","size":85,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.111.122.175","user":"-","method":"GET","referer":"/category/software","path":"/category/networking","size":43,"code":200,"agent":"Mozilla/5.0 (compatible; Googl","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.117.150.167","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":109,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"176.93.131.44","user":"-","method":"POST","referer":"/category/music","path":"/search/?c=Toys","size":60,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"}]
+```
 
 ## Installation
 
@@ -63,22 +79,6 @@ Options:
   -P, [--pretty], [--no-pretty]  # pretty print
   --config, [--config=CONFIG]    # config file
                                  # Default: /Users/toyama-h/.database.yml
-```
-
-## Exsample
-
-### run query
-
-```bash
-$ myq -q "select * from access limit 10"
-[{"host":"48.189.196.32","user":"-","method":"POST","referer":"-","path":"/search/?c=Games+Sports","size":133,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"128.24.107.59","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":70,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"144.102.28.67","user":"-","method":"GET","referer":"/category/office","path":"/item/games/4274","size":59,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"100.129.167.163","user":"-","method":"GET","referer":"/category/books","path":"/item/electronics/4570","size":139,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"132.189.67.199","user":"-","method":"POST","referer":"-","path":"/search/?c=Finance","size":116,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0) A","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"176.147.148.79","user":"-","method":"GET","referer":"/category/software","path":"/item/jewelry/4592","size":78,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"200.48.189.175","user":"-","method":"GET","referer":"-","path":"/category/software","size":85,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.111.122.175","user":"-","method":"GET","referer":"/category/software","path":"/category/networking","size":43,"code":200,"agent":"Mozilla/5.0 (compatible; Googl","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.117.150.167","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":109,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"176.93.131.44","user":"-","method":"POST","referer":"/category/music","path":"/search/?c=Toys","size":60,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"}]
-```
-
-### sampling query
-
-```bash
-$ myq -s access
-[{"host":"48.189.196.32","user":"-","method":"POST","referer":"-","path":"/search/?c=Games+Sports","size":133,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"128.24.107.59","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":70,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"144.102.28.67","user":"-","method":"GET","referer":"/category/office","path":"/item/games/4274","size":59,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"100.129.167.163","user":"-","method":"GET","referer":"/category/books","path":"/item/electronics/4570","size":139,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"132.189.67.199","user":"-","method":"POST","referer":"-","path":"/search/?c=Finance","size":116,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0) A","updated_at":"2014-03-01 19:03:38 +0900"},{"host":"176.147.148.79","user":"-","method":"GET","referer":"/category/software","path":"/item/jewelry/4592","size":78,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"200.48.189.175","user":"-","method":"GET","referer":"-","path":"/category/software","size":85,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.0; r","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.111.122.175","user":"-","method":"GET","referer":"/category/software","path":"/category/networking","size":43,"code":200,"agent":"Mozilla/5.0 (compatible; Googl","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"220.117.150.167","user":"-","method":"GET","referer":"-","path":"/category/electronics","size":109,"code":200,"agent":"Mozilla/4.0 (compatible; MSIE ","updated_at":"2014-03-01 19:03:39 +0900"},{"host":"176.93.131.44","user":"-","method":"POST","referer":"/category/music","path":"/search/?c=Toys","size":60,"code":200,"agent":"Mozilla/5.0 (Windows NT 6.1; W","updated_at":"2014-03-01 19:03:39 +0900"}]
 ```
 
 ## Contributing
