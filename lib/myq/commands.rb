@@ -91,9 +91,10 @@ module Myq
 
     desc '--template [erb]', 'show variables '
     option :output_template, aliases: '-o', type: :string, default: Dir.pwd, desc: 'output directory'
-    option :format, aliases: '--format [camelcase or underscore]', type: :string, default: nil, desc: 'filename format'
+    option :format, aliases: '--format', type: :string, default: nil, desc: 'filename format'
+    option :params, aliases: '--params', type: :hash, default: nil, desc: 'filename format'
     def template(template_path)
-      @core.render_template(template_path, options['output_template'], options['format'])
+      @core.render_template(template_path, options['output_template'], options['format'], options['params'])
     end
 
     desc '-C', 'mysql console'

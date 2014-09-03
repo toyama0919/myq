@@ -187,7 +187,7 @@ module Myq
       end
     end
 
-    def render_template(template_path = nil, output_template, format)
+    def render_template(template_path = nil, output_template, format, params)
       system 'mkdir -p ' + File.dirname(output_template)
       database = @profile['database']
       tables = @client.xquery("SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = '#{database}'")
